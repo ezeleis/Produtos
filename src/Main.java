@@ -6,50 +6,61 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        List<Produtos.Produto> estoque = new ArrayList<>();
+        List<Produtos.Produto> inventory = new ArrayList<>();
 
         System.out.println("Digite o número de produtos a serem adicionados no estoque: ");
-        int numProdutos = sc.nextInt();
+        int numProducts = sc.nextInt();
 
-        for (int i = 0; i < numProdutos; i++) {
+        for (int i = 0; i < numProducts; i++) {
             System.out.println("Digite o nome do produto: ");
-            String nome = sc.next();
+            String name = sc.next();
 
             System.out.println("Digite o preço do produto: ");
-            double preco = sc.nextDouble();
+            double price = sc.nextDouble();
 
             System.out.println("Digite a quantidade do produto: ");
-            int quantidade = sc.nextInt();
+            int quantity = sc.nextInt();
 
-            Produtos.Produto produto = new Produtos.Produto(nome, preco, quantidade);
-            estoque.add(produto);
+            Produtos.Produto product = new Produtos.Produto(name, price, quantity);
+            inventory.add(product);
         }
 
         System.out.println("Estoque atual: ");
-        exibirEstoque(estoque);
+        displayInventory(inventory);
 
-        System.out.println("Digite o número do produto a ser removido: ");
-        int indiceRemover = sc.nextInt();
+        System.out.println("Digite o número do produto a ser removido ou '-1' para cancelar: ");
+        int removeIndex = sc.nextInt();
 
-        if (indiceRemover >= 0 && indiceRemover < estoque.size()) {
-            estoque.remove(indiceRemover);
+        if (removeIndex >= 0 && removeIndex < inventory.size()) {
+            inventory.remove(removeIndex);
             System.out.println("Produto removido com sucesso!");
         } else {
             System.out.println("Índice inválido! Nenhum produto removido.");
         }
 
         System.out.println("Estoque atualizado: ");
-        exibirEstoque(estoque);
+        displayInventory(inventory);
+
+        double totalStockValue = calculateTotalStockValue(inventory);
+        System.out.println("Valor total do estoque: R$" + totalStockValue);
     }
 
-    public static void exibirEstoque(List<Produtos.Produto> estoque) {
-        for (int i = 0; i < estoque.size(); i++) {
-            Produtos.Produto produto = estoque.get(i);
+    public static void displayInventory(List<Produtos.Produto> inventory) {
+        for (int i = 0; i < inventory.size(); i++) {
+            Produtos.Produto product = inventory.get(i);
             System.out.println("Índice: " + i);
-            System.out.println("Nome: " + produto.nome);
-            System.out.println("Preço: " + produto.preco);
-            System.out.println("Quantidade: " + produto.quantidade);
+            System.out.println("Nome: " + product.nome);
+            System.out.println("Preço: " + product.preco);
+            System.out.println("Quantidade: " + product.quantidade);
             System.out.println("-----------------------");
         }
+    }
+
+    public static double calculateTotalStockValue(List<Produtos.Produto> inventory) {
+        double totalValue = 0.0;
+        for (Produtos.Produto product : inventory) {
+            totalValue += product.preco * product.quantidade;
+        }
+        return totalValue;
     }
 }
