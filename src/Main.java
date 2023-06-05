@@ -24,5 +24,32 @@ public class Main {
             Produtos.Produto produto = new Produtos.Produto(nome, preco, quantidade);
             estoque.add(produto);
         }
+
+        System.out.println("Estoque atual: ");
+        exibirEstoque(estoque);
+
+        System.out.println("Digite o número do produto a ser removido: ");
+        int indiceRemover = sc.nextInt();
+
+        if (indiceRemover >= 0 && indiceRemover < estoque.size()) {
+            estoque.remove(indiceRemover);
+            System.out.println("Produto removido com sucesso!");
+        } else {
+            System.out.println("Índice inválido! Nenhum produto removido.");
+        }
+
+        System.out.println("Estoque atualizado: ");
+        exibirEstoque(estoque);
+    }
+
+    public static void exibirEstoque(List<Produtos.Produto> estoque) {
+        for (int i = 0; i < estoque.size(); i++) {
+            Produtos.Produto produto = estoque.get(i);
+            System.out.println("Índice: " + i);
+            System.out.println("Nome: " + produto.nome);
+            System.out.println("Preço: " + produto.preco);
+            System.out.println("Quantidade: " + produto.quantidade);
+            System.out.println("-----------------------");
+        }
     }
 }
