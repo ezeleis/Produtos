@@ -11,5 +11,10 @@ public class Produtos {
             this.quantidade = quantidade;
             this.preco  =preco;
         }
+        @Override
+        public String toString() {
+            double total = preco * quantidade;
+            return nome + ", " + preco + " R$, " + quantidade + " unidades, Total: " + total + " R$";
+        }
     }
 }
